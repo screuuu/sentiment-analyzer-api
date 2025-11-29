@@ -1,100 +1,118 @@
-# Sentiment Analysis API
+# Sentiment Analysis API (FastAPI + LangChain)
 
-A simple REST API built with FastAPI, LangChain, and Docker that analyzes the sentiment of text inputs using an LLM.
+A simple sentiment analysis API built using **FastAPI**, **LangChain**, and **OpenAI's Chat Completions API**.  
+It analyzes any input text and returns:
 
-## Project Structure
+- **sentiment**: `positive`, `negative`, or `neutral`
+- **explanation**: why the model chose that label
 
-- `main.py` — The FastAPI application and LangChain logic.  
-- `Dockerfile` — Configuration for containerizing the application.  
-- `requirements.txt` — Python dependencies.
+------------------------------------------------------------------------
 
-## Prerequisites
+## 🚀 Features
 
-- Docker installed on your machine.  
-- An OpenAI API Key (or another LLM provider supported by LangChain).
+-   Lightweight FastAPI backend\
+-   Uses OpenAI GPT models\
+-   Clean structured JSON output\
+-   Docker support\
+-   Interactive API docs via Swagger UI (`/docs`)
 
-## 1. Local Setup (Without Docker)
+------------------------------------------------------------------------
 
-If you want to test the code while developing:
+## 📁 Project Structure
 
-Create a virtual environment
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+    .
+    ├── main.py
+    ├── requirements.txt
+    ├── Dockerfile
+    ├── .env
+    └── README.md
+
+------------------------------------------------------------------------
+
+## 🔧 Requirements
+
+-   Python 3.10+
+-   OpenAI API Key
+-   (Optional) Docker
+
+------------------------------------------------------------------------
+
+## 🔑 Environment Variables
+
+Create a `.env` file in the project root:
+
+    OPENAI_API_KEY=your_openai_api_key_here
+
+------------------------------------------------------------------------
+
+## 🏃 Run Locally (Without Docker)
+
+### 1. Create and activate virtual environment
+
+``` bash
+python3 -m venv venv
+source venv/bin/activate
 ```
 
-Install dependencies:
-```bash
+### 2. Install dependencies
+
+``` bash
 pip install -r requirements.txt
 ```
 
-Configure environment:
+### 3. Start the API server
 
-Create a `.env` file in the project root and add your key:
-```env
-OPENAI_API_KEY=sk-your-key-here
-```
-
-Run the app:
-```bash
+``` bash
 uvicorn main:app --reload
 ```
 
-Access the API docs at: http://localhost:8000/docs
+### 4. Open in browser
 
-## 2. Docker Setup (Recommended)
+-   API Root → http://127.0.0.1:8000\
+-   Swagger Docs → http://127.0.0.1:8000/docs
 
-Build the image:
-```bash
+------------------------------------------------------------------------
+
+## 🐳 Run with Docker
+
+### 1. Build the image
+
+``` bash
 docker build -t sentiment-api .
 ```
 
-Run the container (pass your API key into the container):
-```bash
-docker run -p 8000:8000 --env-file .env sentiment-app
+### 2. Run the container
+
+``` bash
+docker run -p 8000:8000 --env-file .env sentiment-api
 ```
 
-Test the API:
+### 3. Access the API
 
-Open http://localhost:8000/docs in your browser to use the interactive Swagger UI, or use curl:
+-   http://localhost:8000\
+-   Swagger docs: http://localhost:8000/docs
 
-```bash
-curl -X 'POST' \
-  'http://localhost:8000/analyze-sentiment' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "text": "I really enjoyed using this tool, it made my life so much easier!"
-}'
-```
+------------------------------------------------------------------------
 
-Expected output:
-```json
+## 📡 Example Request
+
+### POST `/analyze-sentiment`
+
+#### Request Body:
+
+``` json
 {
-  "sentiment": "positive",
-  "explanation": "The user expresses enjoyment and states that the tool made their life easier."
+  "text": "I absolutely love this new product!"
 }
 ```
 
-## 3. Git Workflow
+#### Example Response:
 
-Initialize Git:
-```bash
-git init
+``` json
+{
+  "sentiment": "positive",
+  "explanation": "The text expresses strong appreciation and enthusiasm."
+}
 ```
 
-Add files:
-```bash
-git add .
-```
-
-Commit changes:
-```bash
-git commit -m "Initial commit: Setup FastAPI, LangChain and Docker"
-```
-
-Push to GitHub (after creating a repo on GitHub):
-```bash
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/sentiment-api.git
-git push -u origin main
-```
+------------------------------------------------------------------------
