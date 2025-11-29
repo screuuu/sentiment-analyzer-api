@@ -10,10 +10,10 @@ It analyzes any input text and returns:
 
 ## 🚀 Features
 
--   Lightweight FastAPI backend\
--   Uses OpenAI GPT models\
--   Clean structured JSON output\
--   Docker support\
+-   Lightweight FastAPI backend
+-   Uses OpenAI GPT models
+-   Clean structured JSON output
+-   Docker support
 -   Interactive API docs via Swagger UI (`/docs`)
 
 ------------------------------------------------------------------------
